@@ -1,0 +1,19 @@
+<resources>
+    <string name="app_name">Smart Archive</string>
+    <string name="navbar_motto">Reliable <b>.</b> Progressive <b>.</b> Secured</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+    <string name="action_settings">Settings</string>
+
+    <string name="nav_menu_home">Home</string>
+    <string name="nav_menu_category">Category</string>
+    <string name="nav_menu_department">Department</string>
+    <string name="nav_menu_pasco">Pasco</string>
+
+    <string name="index_motto">Reliable <b>.</b> Progressive <b>.</b> Secured</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+</resources>
