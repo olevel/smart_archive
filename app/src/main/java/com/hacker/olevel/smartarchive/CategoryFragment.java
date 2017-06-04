@@ -9,18 +9,18 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.GridView;
 
-import com.hacker.olevel.smartarchive.Controller.ImageGridAdapter;
+import com.hacker.olevel.smartarchive.Controller.TextGridAdapter;
 
 
 /**
  * A simple {@link Fragment} subclass.
  * Activities that contain this fragment must implement the
- * {@link DepartmentFragment.OnFragmentInteractionListener} interface
+ * {@link CategoryFragment.OnFragmentInteractionListener} interface
  * to handle interaction events.
- * Use the {@link DepartmentFragment#newInstance} factory method to
+ * Use the {@link CategoryFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class DepartmentFragment extends Fragment {
+public class CategoryFragment extends Fragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -32,7 +32,7 @@ public class DepartmentFragment extends Fragment {
 
     private OnFragmentInteractionListener mListener;
 
-    public DepartmentFragment() {
+    public CategoryFragment() {
         // Required empty public constructor
     }
 
@@ -42,11 +42,11 @@ public class DepartmentFragment extends Fragment {
      *
      * @param param1 Parameter 1.
      * @param param2 Parameter 2.
-     * @return A new instance of fragment DepartmentFragment.
+     * @return A new instance of fragment CategoryFragment.
      */
     // TODO: Rename and change types and number of parameters
-    public static DepartmentFragment newInstance(String param1, String param2) {
-        DepartmentFragment fragment = new DepartmentFragment();
+    public static CategoryFragment newInstance(String param1, String param2) {
+        CategoryFragment fragment = new CategoryFragment();
         Bundle args = new Bundle();
         args.putString(ARG_PARAM1, param1);
         args.putString(ARG_PARAM2, param2);
@@ -66,13 +66,12 @@ public class DepartmentFragment extends Fragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.grid_fragment, container, false);
-
-        GridView gridView = (GridView) view.findViewById(R.id.gridview);
-        gridView.setAdapter(new ImageGridAdapter(getActivity()) );
-
         // Inflate the layout for this fragment
-        return view; //inflater.inflate(R.layout.fragment_department, container, false);
+        View view = inflater.inflate(R.layout.grid_fragment, container, false);
+        GridView gridView = (GridView) view.findViewById(R.id.gridview);
+        gridView.setAdapter(new TextGridAdapter(getActivity()));
+
+        return view;
     }
 
     // TODO: Rename method, update argument and hook method into UI event

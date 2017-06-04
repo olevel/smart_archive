@@ -19,31 +19,13 @@ import android.view.Menu;
 import android.view.MenuItem;
 
 public class MainActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, IndexFragment.OnFragmentInteractionListener {
+        implements NavigationView.OnNavigationItemSelectedListener, IndexFragment.OnFragmentInteractionListener,
+        DepartmentFragment.OnFragmentInteractionListener, CategoryFragment.OnFragmentInteractionListener {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
-
-        // check that the activity is using the layout version with
-        // fragment_container Framelayout
-        if (findViewById(R.id.fragment_container) != null) {
-            // We avoid fragment overlapping by making sure we do not inflate
-            // a new fragment when returning from a previous state
-            if (savedInstanceState != null) {
-                return;
-            }
-
-            // Create a new fragment to be placed in the activity layout
-            IndexFragment indexFragment = new IndexFragment();
-
-            // Pass in arguments if any
-            indexFragment.setArguments(getIntent().getExtras());
-
-            // Add fragment to the 'fragment_container' FrameLayout
-            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, indexFragment).commit();
-        }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -65,6 +47,27 @@ public class MainActivity extends AppCompatActivity
 
         NavigationView navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
+
+
+        // check that the activity is using the layout version with
+        // fragment_container Framelayout
+        if (findViewById(R.id.fragment_container) != null) {
+            // We avoid fragment overlapping by making sure we do not inflate
+            // a new fragment when returning from a previous state
+            if (savedInstanceState != null) {
+                return;
+            }
+
+            // Create a new fragment to be placed in the activity layout
+            IndexFragment indexFragment = new IndexFragment();
+
+            // Pass in arguments if any
+            indexFragment.setArguments(getIntent().getExtras());
+
+            // Add fragment to the 'fragment_container' FrameLayout
+            getSupportFragmentManager().beginTransaction().add(R.id.fragment_container, indexFragment).commit();
+        }
+
     }
 
     @Override
@@ -111,10 +114,10 @@ public class MainActivity extends AppCompatActivity
             fragment = new IndexFragment();
             fragment.setArguments(getIntent().getExtras());
         } else if (id == R.id.nav_category) {
-            fragment = new IndexFragment();
+            fragment = new CategoryFragment();
             fragment.setArguments(getIntent().getExtras());
         } else if (id == R.id.nav_department) {
-            fragment = new IndexFragment();
+            fragment = new DepartmentFragment();
             fragment.setArguments(getIntent().getExtras());
         }
 
@@ -128,6 +131,11 @@ public class MainActivity extends AppCompatActivity
 
     @Override
     public void onIndexFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
 
     }
 }
