@@ -12,8 +12,9 @@ public class AnnualPublications {
     public String departmentCode;
     public String category;
 
-    public AnnualPublications(String year) {
+    public AnnualPublications(String departmentCode, String year) {
         this.year = year;
+        this.departmentCode = departmentCode;
     }
 
     public void setCategory(String category) {

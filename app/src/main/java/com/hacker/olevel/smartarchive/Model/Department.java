@@ -14,40 +14,21 @@ import java.util.List;
  */
 
 public class Department implements Serializable {
-    private String name;
-    private String code;
+    public String name;
+    public String code;
     private String faculty;
     public int establishmentDate;
-    private int closureDate;
-    private boolean isClosed = false;
+    public int closureDate;
+    public boolean isClosed = false;
 
-    public Department(String name, String code, String faculty) {
+    public Department(String name, String code, String faculty, int establishmentDate) {
         this.name = name;
         this.code = code;
         this.faculty = faculty;
+        this.establishmentDate = establishmentDate;
     }
 
-    public String getName() {
-        return name;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getFaculty() {
-        return faculty;
-    }
-
-    public void setDissolved(boolean isOperational, Date dissolutionDate) {
-        this.isClosed = isOperational;
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(dissolutionDate);
-
-        this.closureDate = calendar.get(Calendar.YEAR);
-    }
-
-    public ArrayList<String> getYearGroups(int establishmentDate) {
+    public ArrayList<String> getYearGroups() {
         this.establishmentDate = establishmentDate;
 
         ArrayList<String> yearGroups = new ArrayList<>();

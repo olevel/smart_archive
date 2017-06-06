@@ -114,9 +114,11 @@ public class MainActivity extends AppCompatActivity
         } else if (id == R.id.nav_category) {
             fragment = new CategoryFragment();
             fragment.setArguments(getIntent().getExtras());
+
         } else if (id == R.id.nav_department) {
             fragment = new DepartmentFragment();
             fragment.setArguments(getIntent().getExtras());
+
         }
 
         // Add fragment to the 'fragment_container' FrameLayout
@@ -128,14 +130,14 @@ public class MainActivity extends AppCompatActivity
         return true;
     }
 
-    @Override
-    public void onIndexFragmentInteraction(Uri uri) {
-
+    private void setActionbarTitle(String actionbarTitle, String actionbarSubtitle) {
+        getSupportActionBar().setTitle(actionbarTitle);
+        getSupportActionBar().setSubtitle(actionbarSubtitle);
     }
 
     @Override
-    public void onFragmentInteraction(Uri uri) {
-
+    public void onIndexFragmentInteraction() {
+        setActionbarTitle(getResources().getString(R.string.app_name), null);
     }
 
     @Override
@@ -144,15 +146,26 @@ public class MainActivity extends AppCompatActivity
     }
 
     @Override
+    public void onDepartmentFragmentInteraction() {
+        setActionbarTitle(getResources().getString(R.string.app_name), "Departments in UMaT");
+    }
+
+    @Override
     public void onDepartmentGridItemClick(Department department) {
         Bundle args = new Bundle();
         args.putSerializable("department", department);
         DialogFragment dialogFragment = new YearDialogFragment();
         dialogFragment.setArguments(args);
-//
-//        getSupportFragmentManager().beginTransaction().replace(R.id.fragment_container, fragment).
-//                addToBackStack(null).commit();
-
         dialogFragment.show(getSupportFragmentManager(), "YearDialogFragment");
+    }
+
+    @Override
+    public void onFragmentInteraction(Uri uri) {
+
+    }
+
+    @Override
+    public void onCategoryFragmentInteraction() {
+        setActionbarTitle(getResources().getString(R.string.app_name), "Publication categories");
     }
 }

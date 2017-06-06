@@ -20,6 +20,7 @@ import android.widget.GridView;
 
 import com.hacker.olevel.smartarchive.Controller.DepartmentHandler;
 import com.hacker.olevel.smartarchive.Controller.SquareTextView;
+import com.hacker.olevel.smartarchive.Model.AnnualPublications;
 import com.hacker.olevel.smartarchive.Model.Department;
 
 import java.util.ArrayList;
@@ -88,7 +89,7 @@ public class YearDialogFragment extends DialogFragment {
     @NonNull
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        ArrayList<String> yearsList = department.getYearGroups(2002);
+        final ArrayList<String> yearsList = department.getYearGroups();
 
         CharSequence[] yearsCS = yearsList.toArray(new CharSequence[yearsList.size()]);
 
@@ -96,7 +97,7 @@ public class YearDialogFragment extends DialogFragment {
         builder.setTitle(R.string.pick_year).setItems(yearsCS, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                AnnualPublications annualPublications = new AnnualPublications(department.code, yearsList.get(which));
             }
         });
 

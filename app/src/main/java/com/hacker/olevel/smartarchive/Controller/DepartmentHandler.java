@@ -22,17 +22,17 @@ public class DepartmentHandler {
         faculties.add("Faculty of Mineral Resources Technology");
         faculties.add("Faculty of Engineering");
 
-        departments.add(new Department("Computer Science and Engineering", "CE", "Foe"));
-        departments.add(new Department("Electrical and Electronics Engineering", "EL", "Foe"));
-        departments.add(new Department("Mechanical Engineering", "MC", "Foe"));
-        departments.add(new Department("Mathematics", "MA", "Foe"));
+        departments.add(new Department("Computer Science and Engineering", "CE", "Foe", 2004));
+        departments.add(new Department("Electrical and Electronics Engineering", "EL", "Foe", 1998));
+        departments.add(new Department("Mechanical Engineering", "MC", "Foe", 1998));
+        departments.add(new Department("Mathematics", "MA", "Foe", 2002));
 
-        departments.add(new Department("Environmental and Safety Engineering", "ES", "Fmrt"));
-        departments.add(new Department("Geology Engineering", "GL", "Fmrt"));
-        departments.add(new Department("Geomatics Engineering", "GM", "Fmrt"));
-        departments.add(new Department("Minerals Engineering", "MR", "Fmrt"));
-        departments.add(new Department("Mining Engineering", "MN", "Fmrt"));
-        departments.add(new Department("Petroleum Engineering", "PE", "Fmrt"));
+        departments.add(new Department("Environmental and Safety Engineering", "ES", "Fmrt", 2017));
+        departments.add(new Department("Geology Engineering", "GL", "Fmrt", 1992));
+        departments.add(new Department("Geomatics Engineering", "GM", "Fmrt", 1992));
+        departments.add(new Department("Minerals Engineering", "MR", "Fmrt", 1992));
+        departments.add(new Department("Mining Engineering", "MN", "Fmrt", 1992));
+        departments.add(new Department("Petroleum Engineering", "PE", "Fmrt", 2008));
 
     }
 

@@ -13,7 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.GridView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
+import com.hacker.olevel.smartarchive.Controller.SquareDepartmentGridItem;
 import com.hacker.olevel.smartarchive.Controller.SquareTextView;
 import com.hacker.olevel.smartarchive.Model.Department;
 import com.hacker.olevel.smartarchive.Controller.DepartmentHandler;
@@ -82,13 +85,6 @@ public class DepartmentFragment extends Fragment {
         return view; //inflater.inflate(R.layout.fragment_department, container, false);
     }
 
-    // TODO: Rename method, update argument and hook method into UI event
-    public void onButtonPressed(Uri uri) {
-        if (mListener != null) {
-            mListener.onFragmentInteraction(uri);
-        }
-    }
-
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
@@ -101,24 +97,21 @@ public class DepartmentFragment extends Fragment {
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        if (mListener != null) {
+            mListener.onDepartmentFragmentInteraction();
+        }
+    }
+
+    @Override
     public void onDetach() {
         super.onDetach();
         mListener = null;
     }
 
-    /**
-     * This interface must be implemented by activities that contain this
-     * fragment to allow an interaction in this fragment to be communicated
-     * to the activity and potentially other fragments contained in that
-     * activity.
-     * <p>
-     * See the Android Training lesson <a href=
-     * "http://developer.android.com/training/basics/fragments/communicating.html"
-     * >Communicating with Other Fragments</a> for more information.
-     */
     public interface OnFragmentInteractionListener {
-        // TODO: Update argument type and name
-        void onFragmentInteraction(Uri uri);
+        void onDepartmentFragmentInteraction();
         void onDepartmentGridItemClick(Department department);
     }
 
@@ -158,25 +151,65 @@ public class DepartmentFragment extends Fragment {
         @Override
         public View getView(final int position, View convertView, ViewGroup parent) {
             SquareTextView gridTextView;
+            SquareDepartmentGridItem gridItem;
+            TextView departmentCodeTextView;
+            TextView departmentNameTextView;
 
             if (convertView == null) {
 
-                gridTextView = new SquareTextView(context);
-                //gridTextView.setLayoutParams(new GridView.LayoutParams(85, 85));
-                gridTextView.setPadding(8,8,8,8);
-                gridTextView.setBackgroundColor(Color.LTGRAY);
-                gridTextView.setTextColor(Color.WHITE);
-                gridTextView.setTextSize(22);
-                gridTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
-                gridTextView.setGravity(Gravity.CENTER);
+                gridItem = new SquareDepartmentGridItem(getContext());
+                gridItem.setPadding(8,8,8,8);
+                gridItem.setBackgroundColor(Color.LTGRAY);
+                gridItem.setGravity(Gravity.CENTER);
+                gridItem.setOrientation(LinearLayout.VERTICAL);
+
+                departmentCodeTextView = new TextView(getActivity());
+                departmentCodeTextView.setTextSize(22);
+                departmentCodeTextView.setTextColor(Color.WHITE);
+                departmentCodeTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                departmentCodeTextView.setText(departmentHandler.getDepartments().get(position).code);
+
+                departmentNameTextView = new TextView(getActivity());
+                departmentNameTextView.setTextSize(12);
+                departmentNameTextView.setTextColor(Color.WHITE);
+                departmentNameTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                departmentNameTextView.setPadding(0, 20, 0, 0);
+
+                String departmentName = departmentHandler.getDepartments().get(position).name;
+                //String shortDepartmentName = (departmentName.split("\\s+"))[0];
+
+                int lastSpace = departmentName.lastIndexOf(" ");
+                String actualDepartmentName;
+
+                if (lastSpace > 0) {
+                    actualDepartmentName = departmentName.substring(0, departmentName.lastIndexOf(" "));
+                } else {
+                    actualDepartmentName = departmentName;
+                }
+
+                departmentNameTextView.setText(actualDepartmentName);
+
+                // Add textviews to grid item
+                gridItem.addView(departmentCodeTextView);
+                gridItem.addView(departmentNameTextView);
+//
+//                gridTextView = new SquareTextView(context);
+//                //gridTextView.setLayoutParams(new GridView.LayoutParams(85, 85));
+//                gridTextView.setPadding(8,8,8,8);
+//                gridTextView.setBackgroundColor(Color.LTGRAY);
+//                gridTextView.setTextColor(Color.WHITE);
+//                gridTextView.setTextSize(22);
+//                gridTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+//                gridTextView.setGravity(Gravity.CENTER);
+
 
             } else {
-                gridTextView = (SquareTextView) convertView;
+                //gridTextView = (SquareTextView) convertView;
+                gridItem = (SquareDepartmentGridItem) convertView;
             }
 
-            gridTextView.setText(departmentHandler.getDepartments().get(position).getCode());
 
-            gridTextView.setOnClickListener(new View.OnClickListener() {
+            gridItem.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     if (mListener != null) {
@@ -185,7 +218,12 @@ public class DepartmentFragment extends Fragment {
                     }
                 }
             });
-            return gridTextView;
+
+
+            //return gridTextView;
+
+
+            return gridItem;
         }
     }
 
