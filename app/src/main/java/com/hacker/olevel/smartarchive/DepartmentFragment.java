@@ -1,15 +1,22 @@
 package com.hacker.olevel.smartarchive;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.Fragment;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.BaseAdapter;
 import android.widget.GridView;
 
-import com.hacker.olevel.smartarchive.Controller.ImageGridAdapter;
+import com.hacker.olevel.smartarchive.Controller.SquareTextView;
+import com.hacker.olevel.smartarchive.Model.Department;
+import com.hacker.olevel.smartarchive.Controller.DepartmentHandler;
 
 
 /**
@@ -69,7 +76,7 @@ public class DepartmentFragment extends Fragment {
         View view = inflater.inflate(R.layout.grid_fragment, container, false);
 
         GridView gridView = (GridView) view.findViewById(R.id.gridview);
-        gridView.setAdapter(new ImageGridAdapter(getActivity()) );
+        gridView.setAdapter(new DepartmentGridAdapter(getActivity()) );
 
         // Inflate the layout for this fragment
         return view; //inflater.inflate(R.layout.fragment_department, container, false);
@@ -112,5 +119,74 @@ public class DepartmentFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+        void onDepartmentGridItemClick(Department department);
     }
+
+
+    /**
+     * File: DepartmentGridAdapter.java
+     * Desc: Populates grid views with available departments
+     *
+     * Created by olevel on 6/4/17.
+     */
+
+    private class DepartmentGridAdapter extends BaseAdapter {
+        private Context context;
+        private DepartmentHandler departmentHandler;
+
+        public DepartmentGridAdapter(Context context) {
+            this.context = context;
+            departmentHandler = new DepartmentHandler();
+        }
+
+        @Override
+        public int getCount() {
+            return departmentHandler.getDepartments().size();
+        }
+
+        @Override
+        public Department getItem(int position) {
+            return departmentHandler.getDepartments().get(position);//department.getSingleDepartmentCode(position);
+        }
+
+        @Override
+        public long getItemId(int position) {
+            return position;
+        }
+
+        @RequiresApi(api = Build.VERSION_CODES.JELLY_BEAN_MR1)
+        @Override
+        public View getView(final int position, View convertView, ViewGroup parent) {
+            SquareTextView gridTextView;
+
+            if (convertView == null) {
+
+                gridTextView = new SquareTextView(context);
+                //gridTextView.setLayoutParams(new GridView.LayoutParams(85, 85));
+                gridTextView.setPadding(8,8,8,8);
+                gridTextView.setBackgroundColor(Color.LTGRAY);
+                gridTextView.setTextColor(Color.WHITE);
+                gridTextView.setTextSize(22);
+                gridTextView.setTextAlignment(View.TEXT_ALIGNMENT_CENTER);
+                gridTextView.setGravity(Gravity.CENTER);
+
+            } else {
+                gridTextView = (SquareTextView) convertView;
+            }
+
+            gridTextView.setText(departmentHandler.getDepartments().get(position).getCode());
+
+            gridTextView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    if (mListener != null) {
+                        mListener.onDepartmentGridItemClick(departmentHandler.getDepartments().
+                                get(position));
+                    }
+                }
+            });
+            return gridTextView;
+        }
+    }
+
 }

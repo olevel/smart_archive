@@ -24,6 +24,7 @@ public class TextGridAdapter extends BaseAdapter {
     private final List<TextGridItem> textGridItems = new ArrayList<>();
     private final LayoutInflater layoutInflater;
 
+
     public TextGridAdapter(Context context) {
         layoutInflater = LayoutInflater.from(context);
 
